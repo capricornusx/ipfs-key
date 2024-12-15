@@ -37,3 +37,14 @@ jobs:
         with:
           name: ipfs-key-${{ matrix.os }}-${{ matrix.architecture }}
           path: ipfs-key-${{ env.GOOS }}-${{ env.GOARCH }}
+
+      - name: Upload Release Asset
+        if: github.event_name == 'release'
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./ipfs-key-${{ env.GOOS }}-${{ env.GOARCH }}
+          asset_name: ipfs-key-${{ env.GOOS }}-${{ env.GOARCH }}
+          asset_content_type: application/octet-stream
