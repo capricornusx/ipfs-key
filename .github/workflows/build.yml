@@ -2,6 +2,9 @@ name: Build and Publish Binaries
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - master
   release:
     types: [published]
 
@@ -12,6 +15,9 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest]
         architecture: [amd64, arm64]
+    env:
+      GOOS: ${{ matrix.os == 'ubuntu-latest' && 'linux' || 'darwin' }}
+      GOARCH: ${{ matrix.architecture }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
@@ -22,9 +28,6 @@ jobs:
           go-version: '1.20'
 
       - name: Build Binary
-        env:
-          GOOS: ${{ matrix.os == 'ubuntu-latest' && 'linux' || 'darwin' }}
-          GOARCH: ${{ matrix.architecture }}
         run: go build -o ipfs-key-${GOOS}-${GOARCH}
 
       - name: Upload Binary as Artifact
