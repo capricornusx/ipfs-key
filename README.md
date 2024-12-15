@@ -6,15 +6,17 @@
 
 ## Table of Contents
 
-- [Installation](#installation)
-- [Usage](#usage)
-- [Contribute](#contribute)
-- [License](#license)
+- [ipfs-key](#ipfs-key)
+  - [Table of Contents](#table-of-contents)
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [Contribute](#contribute)
+  - [License](#license)
 
 ## Installation
 
 ```
-$ go get github.com/whyrusleeping/ipfs-key
+$ go get github.com/BestianCode/go.ipfs-key
 ```
 
 ## Usage
@@ -42,7 +44,7 @@ Reading key at: my-ed.key
 Success!
 ID for ed25519 key: 12D3KooWF1TKgiqLMh14za7dWMN5RFRC1WAvgHYioksmdwuhZkzT
 ```
-For backward compatibility, to read RSA and Ed25519 keys generated with raw(), specify the `-type rsa` or `-type ed25519` before the `-key` 
+For backward compatibility, to read RSA and Ed25519 keys generated with raw(), specify the `-type rsa` or `-type ed25519` before the `-key`
 ```
 $ ipfs-key --type rsa -key my-ed.key
 Reading key at: my-ed.key
