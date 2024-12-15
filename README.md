@@ -16,7 +16,7 @@
 ## Installation
 
 ```
-$ go get github.com/BestianCode/go.ipfs-key
+$ go get github.com/BestianCode/ipfs-key
 ```
 
 ## Usage
