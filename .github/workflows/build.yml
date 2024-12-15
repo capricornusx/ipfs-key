@@ -2,9 +2,6 @@ name: Build and Publish Binaries
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - master
   release:
     types: [published]
 
@@ -30,17 +27,14 @@ jobs:
       - name: Build Binary
         run: |
           go build -o ipfs-key-${GOOS}-${GOARCH}
-          chmod +x ipfs-key-${GOOS}-${GOARCH}
-
-      - name: Compress Binary
-        run: |
+          chmod 0755 ipfs-key-${GOOS}-${GOARCH}
           zip ipfs-key-${GOOS}-${GOARCH}.zip ipfs-key-${GOOS}-${GOARCH}
 
       - name: Upload Binary as Artifact
         uses: actions/upload-artifact@v3
         with:
           name: ipfs-key-${{ matrix.os }}-${{ matrix.architecture }}
-          path: ipfs-key-${GOOS}-${GOARCH}
+          path: ipfs-key-${{ env.GOOS }}-${{ env.GOARCH }}
 
       - name: Upload Release Asset
         if: github.event_name == 'release'
@@ -49,6 +43,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./ipfs-key-${GOOS}-${GOARCH}.zip
-          asset_name: ipfs-key-${GOOS}-${GOARCH}.zip
-          asset_content_type: application/zip
+          asset_path: ./ipfs-key-${{ env.GOOS }}-${{ env.GOARCH }}.zip
+          asset_name: ipfs-key-${{ env.GOOS }}-${{ env.GOARCH }}.zip
+          asset_content_type: application/octet-stream
