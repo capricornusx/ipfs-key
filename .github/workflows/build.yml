@@ -40,7 +40,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: ipfs-key-${{ matrix.os }}-${{ matrix.architecture }}
-          path: ipfs-key-${GOOS}-${GOARCH}.zip
+          path: ipfs-key-${GOOS}-${GOARCH}
 
       - name: Upload Release Asset
         if: github.event_name == 'release'
